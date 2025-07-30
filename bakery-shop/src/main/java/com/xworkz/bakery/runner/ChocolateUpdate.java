@@ -1,10 +1,10 @@
 package com.xworkz.bakery.runner;
 
-import com.xworkz.bakery.entity.BakedGoodEntity;
+import com.xworkz.bakery.entity.ChocolateEntity;
 
 import javax.persistence.*;
 
-public class BakeryUpdate {
+public class ChocolateUpdate {
     public static void main(String[] args) {
         EntityManagerFactory entityManagerFactory=null;
         EntityManager entityManager=null;
@@ -15,12 +15,12 @@ public class BakeryUpdate {
             entityManager=entityManagerFactory.createEntityManager();
             entityTransaction=entityManager.getTransaction();
 
-            BakedGoodEntity bakedGood= entityManager.find(BakedGoodEntity.class,2);
+            ChocolateEntity chocolate= entityManager.find(ChocolateEntity.class,2);
 
             entityTransaction.begin();
 
-            bakedGood.setMadeOf("Maida");
-            entityManager.merge(bakedGood);
+            chocolate.setChocolatePrice(5.0);
+            entityManager.merge(chocolate);
             entityTransaction.commit();
 
         }
