@@ -2,6 +2,8 @@ package com.xworkz.guest.service;
 
 import com.xworkz.guest.entity.GuestEntity;
 
+import java.util.List;
+
 public interface GuestService {
     boolean save(GuestEntity guestEntity);
 
@@ -16,4 +18,14 @@ public interface GuestService {
     GuestEntity findByContact(Long contact);
 
     GuestEntity findByEmail(String email);
+
+    int updateEmailByName(String email, String name);
+
+    int updateRsvpStatusByID(String rsvp, Integer id);
+
+    int updateContactByNameAndID(Long contact,String name,Integer id);
+
+    List<String> getAllGuests();
+    List<Object[]> getAllGuestsAndContacts();
+    List<String> getAllEmail();
 }

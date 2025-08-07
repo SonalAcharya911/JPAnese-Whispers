@@ -2,18 +2,22 @@ package com.xworkz.guest.service;
 
 import com.xworkz.guest.entity.GuestEntity;
 import com.xworkz.guest.repo.GuestRepo;
+import com.xworkz.guest.repo.GuestRepoImpl;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
+import java.util.List;
 
 public class GuestServiceImpl implements GuestService{
-    private GuestRepo guestRepo;
+    private GuestRepo guestRepo=new GuestRepoImpl();
     private EntityManager em;
 
 
     @Override
     public boolean save(GuestEntity guestEntity) {
         if(guestEntity!=null){
-            if(guestEntity.getGuestName()!=null && guestEntity.getGuestName().length()<3){
+            System.out.println("guestEntity is not null");
+            if((guestEntity.getGuestName()!=null) && (guestEntity.getGuestName().length()>3)){
                 System.out.println("valid name");
             }
             else{
@@ -27,11 +31,11 @@ public class GuestServiceImpl implements GuestService{
                 System.out.println("invalid email");
                 return false;
             }
-            if(guestEntity.getContactNumber()!=0 && guestEntity.getContactNumber()<1000000000l){
+            if(guestEntity.getContactNumber()!=0 && guestEntity.getContactNumber()>1000000000l){
                 System.out.println("valid contact");
             }
             else {
-                System.out.println("invalid email");
+                System.out.println("invalid contact");
                 return false;
             }
             String rsvp= guestEntity.getRsvpStatus();
@@ -125,5 +129,36 @@ public class GuestServiceImpl implements GuestService{
             return entity;
         }
         return null;
+    }
+
+    @Override
+    public int updateEmailByName(String email, String name) {
+        int rows=guestRepo.updateEmailByName(email,name);
+        return rows;
+    }
+
+    @Override
+    public int updateRsvpStatusByID(String rsvp, Integer id) {
+        return guestRepo.updateRsvpStatusByID(rsvp,id);
+    }
+
+    @Override
+    public int updateContactByNameAndID(Long contact, String name, Integer id) {
+        return guestRepo.updateContactByNameAndID(contact,name,id);
+    }
+
+    @Override
+    public List<String> getAllGuests() {
+        return guestRepo.getAllGuests();
+    }
+
+    @Override
+    public List<Object[]> getAllGuestsAndContacts() {
+        return guestRepo.getAllGuestsAndContacts();
+    }
+
+    @Override
+    public List<String> getAllEmail() {
+        return guestRepo.getAllEmail();
     }
 }
